@@ -30,8 +30,8 @@ namespace lb7
             //Console.WriteLine(date1.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR")));
             //// Displays 01/03/2008 07:00:00
 
-            //try
-            //{
+            try
+            {
                 while (go_on)
                 {
                     Console.Clear();
@@ -141,13 +141,13 @@ namespace lb7
                             break;
                     }
                 }
-            //}
-            //catch (Exception)
-            //{
-            //    Console.WriteLine("Неверный ввод Завершение программы");
-            //    Environment.Exit(0);
-            //}
-            
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Неверный ввод Завершение программы");
+                Environment.Exit(0);
+            }
+
         }
     }
 }
