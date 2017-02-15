@@ -30,8 +30,8 @@ namespace lb7
             //Console.WriteLine(date1.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("fr-FR")));
             //// Displays 01/03/2008 07:00:00
 
-            try
-            {
+            //try
+            //{
                 while (go_on)
                 {
                     Console.Clear();
@@ -53,8 +53,12 @@ namespace lb7
                             }
                             else
                             {
-                                File.Create(nameFile);
-                                Console.WriteLine("Файл успешно создан");
+                            //Объект FileStream, созданный  методом(File.Create), имеет по умолчанию значение None для FileShare;
+                            //никакой другой процесс или код не может получить доступ к созданному файлу,
+                            //пока не будет закрыт исходный дескриптор файла.
+                            FileStream fs1 = File.Create(nameFile);
+                            fs1.Close();
+                            Console.WriteLine("Файл успешно создан");
                             }
                             Thread.Sleep(1000);
                             break;
@@ -65,6 +69,8 @@ namespace lb7
                                 Thread.Sleep(1000);
                                 break;
                             }
+
+
                             using (StreamReader sr = File.OpenText(nameFile))
                             {
                                 string s = "";
@@ -72,6 +78,7 @@ namespace lb7
                                 {
                                     Console.WriteLine(s);
                                 }
+
                                
                             }
                             Console.WriteLine("Для продолжения нажмите любую клавишу...");
@@ -134,12 +141,12 @@ namespace lb7
                             break;
                     }
                 }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Неверный ввод Завершение программы");
-                Environment.Exit(0);
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    Console.WriteLine("Неверный ввод Завершение программы");
+            //    Environment.Exit(0);
+            //}
             
         }
     }
