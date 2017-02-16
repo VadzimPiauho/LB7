@@ -154,7 +154,11 @@ namespace lb7_2
                                             }                                            
                                         }
                                     }
+                                    Array.Reverse(arr);
                                     s = string.Concat(arr);
+                                    char[] arrChar = s.ToCharArray();
+                                    Array.Reverse(arrChar);
+                                    s = string.Concat(arrChar);
                                     sw2.WriteLine(s);
                                 }
                                 sw2.Close();
