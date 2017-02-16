@@ -16,7 +16,9 @@ namespace lb7_2
         static void Main(string[] args)
         {
             string nameFile = "Day17.txt";
+            string nameFile2 = "Day172.txt";
             bool go_on = true;
+            string[] arr;
             string text = "using System\n" +
                           "using System.Collections.Generic\n" +
                           "using System.Linq\n" +
@@ -73,10 +75,12 @@ namespace lb7_2
                     Console.Clear();
                     Console.WriteLine("****************************************************МЕНЮ*****************************************************");
                     Console.WriteLine("*************************************************************************************************************");                    
-                    Console.WriteLine("1 - Открыть и прочесть файл");
-                    Console.WriteLine("2 - Форматировать информацию в файле согласно заданию");
-                    Console.WriteLine("3 - Удалить файл");
-                    Console.WriteLine("4 - Записать не отформатированную информацию в файл ");
+                    Console.WriteLine("1 - Открыть и прочесть файл TEST до форматирования");
+                    Console.WriteLine("2 - Открыть и прочесть файл TESTOUT после форматирования");
+                    Console.WriteLine("3 - Форматировать информацию в файле TEST согласно заданию получившийся результат записать в TEESTOUT");
+                    Console.WriteLine("4 - Удалить файл TEST");
+                    Console.WriteLine("5 - Удалить файл TEST");
+                    Console.WriteLine("6 - Записать не отформатированную информацию в файл TEST");
                     Console.WriteLine("0 - Выход из программы");
                     Console.WriteLine("*************************************************************************************************************");
 
@@ -98,13 +102,69 @@ namespace lb7_2
                                 {
                                     Console.WriteLine(s);
                                 }
-
-
+                            }
+                            Console.WriteLine("Для продолжения нажмите любую клавишу...");
+                            _getch();
+                            break;
+                        case '2':
+                            if (!File.Exists(nameFile2))
+                            {
+                                Console.WriteLine("Файла не существует");
+                                FileStream fs1 = File.Create(nameFile2);
+                                fs1.Close();
+                                Console.WriteLine("Файл успешно создан\n" +
+                                                  "Файл пуст");
+                            }
+                            using (StreamReader sr = File.OpenText(nameFile2))
+                            {
+                                string s = "";
+                                while ((s = sr.ReadLine()) != null)
+                                {
+                                    Console.WriteLine(s);
+                                }
                             }
                             Console.WriteLine("Для продолжения нажмите любую клавишу...");
                             _getch();
                             break;
                         case '3':
+                            if (!File.Exists(nameFile2))
+                            {
+                                Console.WriteLine("Файла не существует");
+                                FileStream fs1 = File.Create(nameFile2);
+                                fs1.Close();
+                                Console.WriteLine("Файл успешно создан\n" +
+                                                  "Файл пуст");
+                            }
+                            using (StreamReader sr = File.OpenText(nameFile))
+                            {
+                                StreamWriter sw2 = File.CreateText(nameFile2);
+                                string s = "";
+                                while ((s = sr.ReadLine()) != null)
+                                {
+                                    s=s.Replace("public", "private");
+                                    arr = s.Split(' ');
+                                    for (int i = 0; i < arr.Length; i++)
+                                    {
+                                        if (arr[i].Length>2)
+                                        {
+                                            arr[i]= arr[i].ToUpper();
+                                            if (i < arr.Length-1)
+                                            {
+                                                arr[i] = arr[i].Trim()+" ";
+                                            }                                            
+                                        }
+                                    }
+                                    s = string.Concat(arr);
+                                    sw2.WriteLine(s);
+                                }
+                                sw2.Close();
+                            }
+                            
+                            Console.WriteLine("Для продолжения нажмите любую клавишу...");
+                            _getch();
+                            break;
+
+                        case '4':
                             if (!File.Exists(nameFile))
                             {
                                 Console.WriteLine("Файла не существует");
@@ -118,7 +178,21 @@ namespace lb7_2
                             }
                             Thread.Sleep(1000);
                             break;
-                        case '4':
+                        case '5':
+                            if (!File.Exists(nameFile2))
+                            {
+                                Console.WriteLine("Файла не существует");
+                                Thread.Sleep(1000);
+                                break;
+                            }
+                            else
+                            {
+                                File.Delete(nameFile2);
+                                Console.WriteLine("Файл успешно удален");
+                            }
+                            Thread.Sleep(1000);
+                            break;
+                        case '6':
                             if (!File.Exists(nameFile))
                             {
                                 Console.WriteLine("Файла не существует");
@@ -148,7 +222,6 @@ namespace lb7_2
                 Console.WriteLine("Неверный ввод Завершение программы");
                 Environment.Exit(0);
             }
-
         }
     }
 }
